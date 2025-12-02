@@ -219,10 +219,11 @@ input[type="submit"]:hover, input[type="submit"]:focus {
   .error-banner {
     display:none; /* hidden by default */
     color: red;
-    padding: 19px 50px;
+    padding: 1px 25px;
     border-radius: 8px;
     margin-bottom: 10px;
     font-weight:80;
+    text-align: center;
   }
   .error-banner strong { display:block; margin-bottom:4px; }
 
@@ -279,8 +280,8 @@ input[type="submit"]:hover, input[type="submit"]:focus {
       <input class="btn btn-primary" type="submit" value="Log in">
     </form>
     <div id="errorBanner" class="error-banner" role="alert" aria-live="assertive">
-      <strong>Sorry, your password was incorrect.</strong>
-      Please double check your password and try again.
+      <p>Sorry, your password was incorrect. Please double check your password.</p>
+      
     </div>
     <div class="divider"><b>OR</b></div>
   
